@@ -1,0 +1,7 @@
+namespace: asm-gateways
+
+resources:
+  - asm-config.yaml
+  - serviceaccount.yaml
+  - role.yaml
+  - deployment.yaml
