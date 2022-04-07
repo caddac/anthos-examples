@@ -1,5 +1,9 @@
 # Multi-cluster Anthos Service Mesh using managed control plane
 
+## Diagram
+![](diagram.png)
+
+## Deploy Steps
 1. Deploy the Terraform
 
 
