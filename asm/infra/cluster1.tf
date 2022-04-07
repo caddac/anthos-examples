@@ -10,14 +10,6 @@ module "cluster1" {
   ip_range_pods     = "c1-pods-range"
   ip_range_services = "c1-svc-range"
   remove_default_node_pool = true
-  cluster_autoscaling = {
-    enabled=true
-    max_cpu_cores = 12
-    min_cpu_cores = 3
-    max_memory_gb = 48
-    min_memory_gb = 12
-    gpu_resources = []
-  }
   cluster_resource_labels = {
     mesh_id = local.mesh_id
   }
@@ -34,6 +26,7 @@ module "cluster1" {
       initial_node_count = 1
     },
   ]
+  depends_on = [module.project]
 }
 
 #register this cluster as a member of the fleet

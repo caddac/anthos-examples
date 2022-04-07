@@ -5,3 +5,4 @@ resources:
   - serviceaccount.yaml
   - role.yaml
   - deployment.yaml
+  - service.yaml

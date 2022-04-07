@@ -11,7 +11,7 @@ module "cluster2" {
   ip_range_pods            = "c2-pods-range"
   ip_range_services        = "c2-svc-range"
   remove_default_node_pool = true
-  cluster_resource_labels  = {
+  cluster_resource_labels = {
     mesh_id = local.mesh_id
   }
   identity_namespace = local.workload_pool
@@ -27,6 +27,7 @@ module "cluster2" {
       initial_node_count = 1
     },
   ]
+  depends_on = [module.project]
 }
 
 #register this cluster as a member of the fleet
