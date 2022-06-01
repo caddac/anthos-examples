@@ -7,40 +7,38 @@
 1. Deploy the Terraform
 
 
-    cd ~/src/anthos-examples/asm/infra
+        cd ~/src/anthos-examples/asm/infra
 
-update the values in `var_inputs.auto.tfvars` file
+    update the values in `var_inputs.auto.tfvars` file
 
-    terraform init && terraform apply
+        terraform init && terraform apply
 
-2. Enable multi-cluster mesh  
+2. Enable multi-cluster mesh, from the cloud console, run:
 
 
-    ## From the cloud console, run:
-    curl https://storage.googleapis.com/csm-artifacts/asm/asmcli_1.13 > asmcli
-    chmod +x asmcli
-    ./asmcli create-mesh <project_id> \
-        <project_id>/us-west1/<project_id>-cluster1 \
-        <project_id>/us-east1/<project_id>-cluster2
+        curl https://storage.googleapis.com/csm-artifacts/asm/asmcli_1.13 > asmcli
+        chmod +x asmcli
+        ./asmcli create-mesh <project_id> \
+            <project_id>/us-west1/<project_id>-cluster1 \
+            <project_id>/us-east1/<project_id>-cluster2
 
 
 6. Get the cluster contexts
 
-
-    export PROJECT_ID=<gcp_project_id>
-    gcloud container clusters get-credentials ${PROJECT_ID}-cluster1 --region us-west1 --project ${PROJECT_ID}
-    gcloud container clusters get-credentials ${PROJECT_ID}-cluster2 --region us-east1 --project ${PROJECT_ID}
+        export PROJECT_ID=<gcp_project_id>
+        gcloud container clusters get-credentials ${PROJECT_ID}-cluster1 --region us-west1 --project ${PROJECT_ID}
+        gcloud container clusters get-credentials ${PROJECT_ID}-cluster2 --region us-east1 --project ${PROJECT_ID}
 
 7. On Cluster1, deploy ASM configuration and app manifests via kustomize
 
 
-    cd anthos-examples/asm
-    kubectl apply -k manifests/ --context=gke_${PROJECT_ID}_us-west1_${PROJECT_ID}-cluster1
+        cd anthos-examples/asm
+        kubectl apply -k manifests/ --context=gke_${PROJECT_ID}_us-west1_${PROJECT_ID}-cluster1
 
 6. On Cluster2, deploy only the app manifests via kustomize
 
 
-    kubectl apply -k manifests/app/ --context=gke_${PROJECT_ID}_us-east1_${PROJECT_ID}-cluster2
+        kubectl apply -k manifests/app/ --context=gke_${PROJECT_ID}_us-east1_${PROJECT_ID}-cluster2
 
 
 # Review your work
